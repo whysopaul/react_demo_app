@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "jsx": "react",
+        "watch": true,
+        "target": "ES3",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "esModuleInterop": true,
+        "moduleResolution": "node"
+    }
+}

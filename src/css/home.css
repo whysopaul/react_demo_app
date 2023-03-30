@@ -1,0 +1,236 @@
+/* .myClass {
+    color: red;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+} */
+
+* {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    margin: 0;
+    /* min-width: 500px; */
+    background-color: rgb(239, 239, 248);
+}
+
+/* #root {
+    min-width: ;
+} */
+
+.header {
+    height: 4em;
+    margin: 0;
+    border-bottom: 1px solid lightgray;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.return {
+    min-width: 4em;
+    /* padding: 0 10px; */
+    cursor: pointer;
+    transition-duration: 0.25s;
+    color: rgb(10, 40, 132);
+}
+
+.return:hover {
+    color: white;
+    background-color: rgb(10, 40, 132);
+}
+
+.arrow {
+    text-align: center;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%) rotate(0.5turn);
+    transform: translate(-50%, -50%) rotate(0.5turn);
+}
+
+.user-info {
+    display: flex;
+    margin-right: 15%;
+}
+
+.user {
+    padding: 0 10px;
+}
+
+.user-name-title {
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.user-name,
+.user-title {
+    text-align: end;
+}
+
+.user-name {
+    color: royalblue;
+}
+
+.user-title {
+    color: darkgray;
+    font-size: smaller;
+}
+
+.user-photo {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 50%;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.main {
+    padding: 10px 10%;
+}
+
+.block {
+    border: 1px solid;
+    border-color: lightgray;
+    border-radius: 10px;
+    margin: 10px auto;
+    /* min-width: 50vw; */
+}
+
+.upload {
+    display: flex;
+    justify-content: space-between;
+}
+
+.upload-file {
+    border: 1px solid;
+    border-color: lightgray;
+    border-radius: 10px;
+    margin: 10px;
+    width: 50%;
+}
+
+.button-with-icon {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.images {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    justify-items: center;
+}
+
+.image {
+    background-color: white;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid;
+    border-color: lightgray;
+    border-radius: 10px;
+    margin: 10px;
+    /* width: 13vw;
+    height: 13vw; */
+    position: relative;
+    width: 90%;
+    height: 0;
+    padding-top: 90%;
+    cursor: pointer;
+    transition-duration: 0.25s;
+}
+
+.selected {
+    background-color: royalblue;
+    transform: scale(0.9);
+}
+
+/* .image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+} */
+
+input {
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+button {
+    background-color: royalblue;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition-duration: 0.25s;
+    /* display: flex;
+    grid-template-columns: auto auto;
+    gap: 10px; */
+}
+
+button:hover {
+    background-color: rgb(10, 40, 132);
+}
+
+button p {
+    margin: 0;
+}
+
+/* .upload-button::after {
+    content: 'hehe';
+    margin-right: 6px;
+} */
+
+
+
+.paul-popup-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0px 4px gainsboro;
+    z-index: 100;
+}
+
+.m-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background: black;
+    opacity: 0.5;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    /* justify-items: center; */
+    align-items: center;
+}
+
+.href {
+    padding: 0 10px;
+}
