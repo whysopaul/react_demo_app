@@ -23,7 +23,7 @@ export default function Header(props: IHeaderProps) {
             </div>
             <div className='nav'>
                 <a href="/" className="href">Home</a>
-                <a href="/vladik" className="href">vladik</a>
+                {/* <a href="/vladik" className="href">vladik</a> */}
                 <a href="/testdata" className="href">Test Data</a>
             </div>
             <div className='user-info'>

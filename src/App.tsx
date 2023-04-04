@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Header from './components/Header';
 import Home from './components/Home';
 import Popup from './components/Popup';
+import Search from './components/Search';
 import TestData from './components/TestData';
 import vladik from './components/vladik';
 
@@ -21,6 +22,7 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
         <Route exact path="/vladik" component={vladik} />
         <Route exact path="/popup/in" component={Popup} />
         <Route exact path="/testdata" component={TestData} />
+        <Route exact path="/search" component={Search} />
 
 
       </Switch>

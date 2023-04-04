@@ -20,6 +20,10 @@ body {
     min-width: ;
 } */
 
+a:visited {
+    color: rgb(10, 40, 132);
+}
+
 .header {
     height: 4em;
     margin: 0;
@@ -103,6 +107,14 @@ body {
     /* min-width: 50vw; */
 }
 
+.block-selected {
+    border: 1px solid;
+    border-color: lightgray;
+    border-radius: 10px;
+    margin: 10px auto;
+    background-color: lightgray;
+}
+
 .upload {
     display: flex;
     justify-content: space-between;
@@ -164,12 +176,15 @@ body {
 } */
 
 input {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+div.upload-file input {
     position: relative;
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    margin-left: 10px;
-    margin-right: 10px;
 }
 
 button {
@@ -229,8 +244,19 @@ button p {
     justify-content: center;
     /* justify-items: center; */
     align-items: center;
+    margin-right: auto;
 }
 
 .href {
     padding: 0 10px;
+}
+
+.selection-container {
+    position: absolute;
+    transform: translateX(-40px);
+}
+
+.selection-checkbox {
+    width: 1rem;
+    height: 1rem;
 }
