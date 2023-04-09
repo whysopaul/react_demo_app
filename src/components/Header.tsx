@@ -1,12 +1,22 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../store';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom'
+import { getData } from '../actions/paulactions/paulactions';
 
 export interface IHeaderProps {
 }
 
 export default function Header(props: IHeaderProps) {
+
+    const dispatch = useDispatch()
+
     const imagesState = useSelector((state: RootStore) => state.paul.data)
+
+    useEffect(() => {
+        dispatch(getData())
+    }, [])
 
     // ???
     function testFn(e) {
@@ -22,11 +32,11 @@ export default function Header(props: IHeaderProps) {
                 </div>
             </div>
             <div className='nav'>
-                <a href="/" className="href">Home</a>
+                <Link to='/'><p className='href'>Home</p></Link>
                 {/* <a href="/vladik" className="href">vladik</a> */}
-                <a href="/testdata" className="href">Test Data</a>
+                <Link to='/testdata'><p className='href'>Test Data</p></Link>
             </div>
-            <div className='user-info'>
+            {imagesState && <div className='user-info'>
                 <div className='user'>
                     <div className='user-name-title'>
                         <div className='user-name'>
@@ -40,7 +50,7 @@ export default function Header(props: IHeaderProps) {
                 <div className='user'>
                     <img className='user-photo' src={imagesState[0]?.account.photo} />
                 </div>
-            </div>
+            </div>}
         </div>
     );
 }
