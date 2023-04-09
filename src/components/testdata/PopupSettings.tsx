@@ -8,7 +8,6 @@ import { changeItem } from '../../actions/testdata/testdata';
 interface IPopupSettingsProps {
     data: AdData,
     onClose?: () => void,
-    selectedItems: AdData[]
 }
 
 const PopupSettings: React.FunctionComponent<IPopupSettingsProps> = (props) => {

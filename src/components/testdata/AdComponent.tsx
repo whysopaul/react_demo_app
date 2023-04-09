@@ -14,7 +14,7 @@ export interface IAdComponentProps {
 export default function AdComponent(props: IAdComponentProps) {
     return (<>
         {props.showInputs && <div className='selection-container'>
-            <input className='selection-checkbox' type='checkbox' checked={props.selectedAds.map(i => i.Id).includes(props.data.Id) ? true : false} onChange={props.selectAd} />
+            <input className='selection-checkbox' type='checkbox' checked={props.selectedAds.map(i => i.Id).includes(props.data.Id)} onChange={props.selectAd} />
         </div>}
         <div className='block' onClick={props.showInputs ? props.selectAd : null} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
             <div>

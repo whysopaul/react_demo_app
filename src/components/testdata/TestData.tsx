@@ -71,7 +71,7 @@ export default function TestData(props: ITestDataProps) {
 
     return (<>
         {showPopupSettings && <>
-            <PopupSettings data={oneItem} onClose={() => setShowPopupSettings(false)} selectedItems={selectedItems} />
+            <PopupSettings data={oneItem} onClose={() => setShowPopupSettings(false)} />
         </>}
         <div className='main'>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
