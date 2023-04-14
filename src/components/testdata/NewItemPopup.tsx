@@ -4,6 +4,7 @@ import { useOnClickOutside } from '../utils/HandleOnClickOutside';
 import { useDispatch } from 'react-redux';
 import { AdData } from '../../actions/testdata/types';
 import { addNewItem } from '../../actions/testdata/testdata';
+import { createAlert } from '../../actions/alerts/alerts';
 
 interface INewItemPopupProps {
 }
@@ -79,7 +80,9 @@ const NewItemPopup: React.FunctionComponent<INewItemPopupProps> = (props) => {
                     <button
                         onClick={() => {
                             createNewItem()
+                            setTitle('')
                             setOpenForm(false)
+                            dispatch(createAlert({ message: 'Объявление успешно создано!', type: 'Success' }))
                         }}
                         className='button-with-icon'>
                         <p>Создать</p>

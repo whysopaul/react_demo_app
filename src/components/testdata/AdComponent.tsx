@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { AdData } from '../../actions/testdata/types';
 import TestModal from './TestModal';
+import { useDispatch } from 'react-redux';
+import { createAlert } from '../../actions/alerts/alerts';
 
 export interface IAdComponentProps {
     data: AdData,
@@ -12,6 +14,9 @@ export interface IAdComponentProps {
 }
 
 export default function AdComponent(props: IAdComponentProps) {
+
+    const dispatch = useDispatch()
+
     return (<>
         {props.showInputs && <div className='selection-container'>
             <input className='selection-checkbox' type='checkbox' checked={props.selectedAds.map(i => i.Id).includes(props.data.Id)} onChange={props.selectAd} />
@@ -53,6 +58,7 @@ export default function AdComponent(props: IAdComponentProps) {
                     onClick={(e) => {
                         e.stopPropagation()
                         props.deleteItem()
+                        dispatch(createAlert({ message: 'Объявление удалено', type: 'Success' }))
                     }}
                 >
                     <i className='fas fa-trash-alt'></i>

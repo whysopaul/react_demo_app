@@ -19,9 +19,8 @@ export default function Header(props: IHeaderProps) {
     }, [])
 
     // ???
-    function testFn(e) {
-        //e.preventDefault();
-        alert('hehe')
+    function testFn() {
+        location.replace('/')
     }
 
     return (
@@ -33,8 +32,10 @@ export default function Header(props: IHeaderProps) {
             </div>
             <div className='nav'>
                 <Link to='/'><p className='href'>Home</p></Link>
+                <Link to='/images'><p className='href'>Images</p></Link>
                 {/* <a href="/vladik" className="href">vladik</a> */}
                 <Link to='/testdata'><p className='href'>Test Data</p></Link>
+                <Link to='/rephrase'><p className='href'>Re-phrase</p></Link>
             </div>
             {imagesState && <div className='user-info'>
                 <div className='user'>

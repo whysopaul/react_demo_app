@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteItem, getTestData } from '../../actions/testdata/testdata';
 import { RootStore } from '../../store';
 import NewItemPopup from './NewItemPopup';
+import { createAlert } from '../../actions/alerts/alerts';
 
 export interface ITestDataProps {
 }
@@ -92,12 +93,12 @@ export default function TestData(props: ITestDataProps) {
                     <button style={{ marginRight: 0 }} onClick={() => dispatch(getTestData())}>Получить объявления</button>
                 </div>
             </div>
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', gap: '10px' }}>
                 <h1 style={{ margin: 0 }}>Объявления</h1>
                 <div style={{ position: 'relative' }}>
-                    <i className="fas fa-search" style={{ position: 'absolute', left: '16px', top: '12px', color: 'darkgray' }}></i>
+                    <i className="fas fa-search" style={{ position: 'absolute', left: '8px', top: '12px', color: 'darkgray' }}></i>
                     <input
-                        style={{ border: '1px solid lightgray', borderRadius: '20px', width: '100%', height: '100%', paddingLeft: '24px' }}
+                        style={{ border: '1px solid lightgray', borderRadius: '20px', width: '100%', height: '100%', paddingLeft: '24px', margin: '0' }}
                         type='search'
                         placeholder='Введите название или ID'
                         value={inputValue}

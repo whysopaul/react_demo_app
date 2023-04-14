@@ -22,9 +22,16 @@ import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
 export const config = {
     key: 'root',
     storage: storage,
-    blacklist: ['router'],
+    blacklist: ['router', 'alerts', 'rephraseReducer'],
     stateReconciler: autoMergeLevel2
 };
+
+// export const rephraseConfig = {
+//     key: 'rephraseReducer',
+//     storage: storage,
+//     blacklist: ['fragments']
+// }
+
 const middleware = [thunk];
 const persisted = persistReducer(config, RootReducer);
 export type RootStore = ReturnType<typeof RootReducer>

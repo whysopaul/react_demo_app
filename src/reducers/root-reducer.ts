@@ -3,6 +3,7 @@ import alertReducer from "./alerts/alerts";
 import paulReducer from "./paulactions/paulactions";
 import testReducer from "./testreducer/testreducer";
 import testDataReducer from "./testdata/testdata";
+import rephraseReducer from "./rephrase/rephrase";
 
 
 
@@ -10,7 +11,8 @@ const RootReducer = combineReducers({
     alerts: alertReducer,
     paul: paulReducer,
     testReducer,
-    testDataReducer
+    testDataReducer,
+    rephraseReducer
 });
 
 export default RootReducer

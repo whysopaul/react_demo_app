@@ -7,10 +7,10 @@ import { TPaulImage } from '../../actions/paulactions/types';
 import Loading from '../utils/Loading';
 import Popup from './Popup';
 
-interface IHomeProps {
+interface IImagesProps {
 }
 
-const Home: React.FunctionComponent<IHomeProps> = (props) => {
+const Images: React.FunctionComponent<IImagesProps> = (props) => {
 
     // хук react для вызова функций из папки actions
     const dispatch = useDispatch()
@@ -104,4 +104,4 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     </>
 };
 
-export default Home;
+export default Images;

@@ -2,10 +2,9 @@ export const CREATE_ALERT = 'CREATE_ALERT'
 export const CLEAR_ALERTS = 'CLEAR_ALERTS'
 
 
-
 export type TAlert = {
     message: string,
-    type: number
+    type: 'Success' | 'Notification' | 'Error'
 }
 
 export interface TCreateAlert {

@@ -4,10 +4,11 @@ import { AdData } from '../../actions/testdata/types';
 import { useOnClickOutside } from '../utils/HandleOnClickOutside';
 import { useDispatch } from 'react-redux';
 import { changeItem } from '../../actions/testdata/testdata';
+import { createAlert } from '../../actions/alerts/alerts';
 
 interface IPopupSettingsProps {
     data: AdData,
-    onClose?: () => void,
+    onClose?: () => void
 }
 
 const PopupSettings: React.FunctionComponent<IPopupSettingsProps> = (props) => {
@@ -50,6 +51,7 @@ const PopupSettings: React.FunctionComponent<IPopupSettingsProps> = (props) => {
                     onClick={() => {
                         dispatch(changeItem(adState))
                         props.onClose()
+                        dispatch(createAlert({ message: 'Изменения сохранены', type: 'Success' }))
                     }}
                     className='button-with-icon'
                 >
