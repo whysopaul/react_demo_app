@@ -10,13 +10,7 @@ export interface IHeaderProps {
 
 export default function Header(props: IHeaderProps) {
 
-    const dispatch = useDispatch()
-
-    const imagesState = useSelector((state: RootStore) => state.paul.data)
-
-    useEffect(() => {
-        dispatch(getData())
-    }, [])
+    const userState = useSelector((state: RootStore) => state.authReducer.userdata)
 
     // ???
     function testFn() {
@@ -37,21 +31,23 @@ export default function Header(props: IHeaderProps) {
                 <Link to='/testdata'><p className='href'>Test Data</p></Link>
                 <Link to='/rephrase'><p className='href'>Re-phrase</p></Link>
             </div>
-            {imagesState && <div className='user-info'>
-                <div className='user'>
-                    <div className='user-name-title'>
-                        <div className='user-name'>
-                            {imagesState[0]?.account.name}
-                        </div>
-                        <div className='user-title'>
-                            Администратор
+            {userState && <>
+                <div className='user-info'>
+                    <div className='user'>
+                        <div className='user-name-title'>
+                            <div className='user-name'>
+                                {userState?.username}
+                            </div>
+                            <div className='user-title'>
+                                Администратор
+                            </div>
                         </div>
                     </div>
+                    {userState.vk_profile && <div className='user'>
+                        <img className='user-photo' src={userState.vk_profile.photo} />
+                    </div>}
                 </div>
-                <div className='user'>
-                    <img className='user-photo' src={imagesState[0]?.account.photo} />
-                </div>
-            </div>}
+            </>}
         </div>
     );
 }

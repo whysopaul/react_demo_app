@@ -1,14 +1,37 @@
 import { Dispatch } from "react";
-import { authDispatchTypes } from "./types";
+import { AUTH_LOGIN_VTARGETE, TUserData, authDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../utils";
+import store from "../../store";
 
 export const loginVTargete = (username: string, password: string) => (dispatch: Dispatch<authDispatchTypes>) => {
 
-    const body = JSON.stringify({ username, password })
+    // console.log(username, password)
 
-    axios.post(SERVER_URL + 'api/auth/login', body).then(res => {
-        res.data
+    // const body = JSON.stringify({ username, password })
+
+    // console.log(body)
+
+    axios.post(SERVER_URL + 'api/auth/login', { username, password }).then(res => {
         console.log(res.data)
-    })
+
+        dispatch({
+            type: AUTH_LOGIN_VTARGETE,
+            payload: res.data
+        })
+
+    }).catch(err => console.log(err))
+}
+
+export const withToken = (params?) => {
+
+    const state = store.getState()
+    const userState: TUserData = state['authReducer']['userdata']
+
+    return {
+        headers: {
+            Token: userState.token
+        },
+        params: params
+    }
 }

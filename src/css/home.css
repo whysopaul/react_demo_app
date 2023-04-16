@@ -312,6 +312,16 @@ div.alert-container>p {
     margin: 0;
 }
 
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home-header>button {
+    height: fit-content;
+}
+
 .home-menu {
     display: grid;
     grid-gap: 10px;

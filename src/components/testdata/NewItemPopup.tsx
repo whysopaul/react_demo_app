@@ -13,7 +13,7 @@ const NewItemPopup: React.FunctionComponent<INewItemPopupProps> = (props) => {
 
     const dispatch = useDispatch()
 
-    const [openForm, setOpenForm] = React.useState(false)
+    const [openForm, setOpenForm] = useState(false)
 
     const refPopup = useRef()
 

@@ -13,11 +13,12 @@ const RePhraseAddFragment: React.FunctionComponent<IRePhraseAddFragmentProps> = 
     const fragmentState = useSelector((state: RootStore) => state.rephraseReducer.fragments)
 
     return <>
-        <button onClick={() => dispatch(addFragment(fragmentState[fragmentState.length - 1] + 1))}>
-            <p>Добавить фрагмент</p>
-            <i className='fas fa-plus' />
-        </button>
-
+        <div>
+            <button onClick={() => dispatch(addFragment(fragmentState[fragmentState.length - 1].id + 1))}>
+                <p>Добавить фрагмент</p>
+                <i className='fas fa-plus' />
+            </button>
+        </div>
     </>;
 };
 

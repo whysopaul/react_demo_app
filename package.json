@@ -34,6 +34,7 @@
     "copy-to-clipboard": "^3.3.1",
     "css-loader": "^5.0.1",
     "file-loader": "^6.2.0",
+    "gpt-3-encoder": "^1.1.4",
     "less-loader": "^7.0.2",
     "moment": "^2.29.1",
     "rc-time-picker": "^3.7.3",

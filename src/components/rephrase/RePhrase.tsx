@@ -23,7 +23,7 @@ const RePhrase: React.FunctionComponent<IRePhraseProps> = (props) => {
                 <RePhraseHelp />
             </div>
             {fragmentsState.map((fragment, index) => {
-                return <RePhraseWorkspace id={fragment} index={index} key={fragment} />
+                return <RePhraseWorkspace id={fragment.id} index={index} key={fragment.id} />
             })}
             <div className='rephrase-add-fragment-container'>
                 <RePhraseAddFragment />

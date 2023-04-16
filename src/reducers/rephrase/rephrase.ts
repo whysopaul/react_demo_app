@@ -1,13 +1,21 @@
-import { ADD_FRAGMENT, DELETE_FRAGMENT, UPDATE_TITLE, rephraseDispatchTypes } from "../../actions/rephrase/types"
+import { ADD_FRAGMENT, DELETE_FRAGMENT, GET_REPHRASE_OBJECTS, SET_REPHRASE_MODE, TRephraseMode, UPDATE_TITLE, rephraseDispatchTypes } from "../../actions/rephrase/types"
 
 interface IDefaultState {
     title: string,
-    fragments: number[]
+    fragments: {
+        id: number,
+        mode: TRephraseMode
+    }[],
+    getRephraseObjects: any
 }
 
 const defaultState: IDefaultState = {
     title: 'Новый проект',
-    fragments: [1]
+    fragments: [{
+        id: 1,
+        mode: 'Entire'
+    }],
+    getRephraseObjects: null
 }
 
 const rephraseReducer = (state: IDefaultState = defaultState, action: rephraseDispatchTypes) => {
@@ -25,7 +33,25 @@ const rephraseReducer = (state: IDefaultState = defaultState, action: rephraseDi
         case DELETE_FRAGMENT:
             return {
                 ...state,
-                fragments: [...state.fragments.filter(i => i !== action.payload)]
+                fragments: [...state.fragments.filter(i => i.id !== action.payload)]
+            }
+        // case SET_REPHRASE_MODE:
+        //     return {
+        //         ...state,
+        //         fragments: [...state.fragments.map(fragment => {
+        //             if (fragment.id === action.payload.id) {
+        //                 return {
+        //                     ...fragment,
+        //                     mode: action.payload.mode
+        //                 }
+        //             }
+        //             return fragment
+        //         })]
+        //     }
+        case GET_REPHRASE_OBJECTS:
+            return {
+                ...state,
+                getRephraseObjects: action.payload
             }
         default:
             return state

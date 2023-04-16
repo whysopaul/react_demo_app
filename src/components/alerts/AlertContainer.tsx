@@ -23,7 +23,7 @@ const AlertContainer: React.FunctionComponent<IAlertContainerProps> = (props) =>
             case 'Success':
                 return <i className='fas fa-check' style={{ color: 'green' }} />
             case 'Notification':
-                return <i className='fas fa-exclamation' style={{ color: 'yellow' }} />
+                return <i className='fas fa-exclamation' style={{ color: 'orange' }} />
             case 'Error':
                 return <i className='fas fa-times' style={{ color: 'red' }} />
         }

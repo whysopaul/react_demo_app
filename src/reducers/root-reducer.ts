@@ -4,6 +4,7 @@ import paulReducer from "./paulactions/paulactions";
 import testReducer from "./testreducer/testreducer";
 import testDataReducer from "./testdata/testdata";
 import rephraseReducer from "./rephrase/rephrase";
+import { authReducer } from "./auth/auth";
 
 
 
@@ -12,7 +13,8 @@ const RootReducer = combineReducers({
     paul: paulReducer,
     testReducer,
     testDataReducer,
-    rephraseReducer
+    rephraseReducer,
+    authReducer
 });
 
 export default RootReducer
