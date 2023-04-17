@@ -8,8 +8,9 @@ import TestData from './components/testdata/TestData';
 import vladik from './components/tests/vladik';
 import TestReducer from './components/tests/TestReducer';
 import AlertContainer from './components/alerts/AlertContainer';
-import RePhrase from './components/rephrase/RePhrase';
 import Images from './components/images/Images';
+import RePhraseHome from './components/rephrase/RePhraseHome';
+import RePhraseProject from './components/rephrase/RePhraseProject';
 
 interface IAppProps {
 }
@@ -30,7 +31,8 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
         <Route exact path="/testdata" component={TestData} />
         {/* <Route exact path="/search" component={Search} /> */}
         {/* <Route exact path="/testr" component={TestReducer} /> */}
-        <Route exact path="/rephrase" component={RePhrase} />
+        <Route exact path="/rephrase" component={RePhraseHome} />
+        <Route exact path="/rephrase/:id" component={RePhraseProject} />
       </Switch>
 
     </Router>

@@ -1,31 +1,35 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFragment, deleteFragment, getRephraseObjects } from '../../actions/rephrase/rephrase';
 import { RootStore } from '../../store';
 import { useState } from 'react';
-import { encode } from 'gpt-3-encoder';
+import { encode } from '../utils/gpt-3-encoder/index';
 import { TRephraseMode } from '../../actions/rephrase/types';
+import { getRephraseProjects } from '../../actions/rephrase/rephrase';
 
 interface IRePhraseWorkspaceProps {
-    id: number,
-    index: number
+    fragment: {
+        position: number,
+        variants: {
+            id: number,
+            is_selected: boolean,
+            text: string
+        }[]
+    }
 }
 
 const RePhraseWorkspace: React.FunctionComponent<IRePhraseWorkspaceProps> = (props) => {
 
     const dispatch = useDispatch()
 
-    const fragmentState = useSelector((state: RootStore) => state.rephraseReducer.fragments)
-
     const [showModes, setShowModes] = useState(false)
     const [mode, setMode] = useState<TRephraseMode>('Entire')
-    const [textarea, setTextarea] = useState('')
+    const [textarea, setTextarea] = useState(props.fragment.variants[0].text)
 
     return <>
         <div className='rephrase-workspace-container'>
             <div className='rephrase-workspace-left-container'>
                 <div className='rephrase-workspace-left-options'>
-                    <button>{props.index + 1}</button>
+                    <button>{props.fragment.position}</button>
                     <div>
                         <button onClick={() => setShowModes(!showModes)}>Выбрать режим</button>
                         <div className={!showModes ? 'rephrase-mode-dropdown' : 'rephrase-mode-dropdown show'}>
@@ -42,10 +46,10 @@ const RePhraseWorkspace: React.FunctionComponent<IRePhraseWorkspaceProps> = (pro
                         {mode === 'Paragraph' && ' Выбор абзацев'}
                         {mode === 'Personal' && ' Персональная команда'}
                     </p>
-                    <p><label htmlFor={`use-synonyms id-${props.id}`}>Использовать синонимы</label><input type='checkbox' id={`use-synonyms id-${props.id}`} /></p>
+                    <p><label htmlFor={`use-synonyms id-${props.fragment.position}`}>Использовать синонимы</label><input type='checkbox' id={`use-synonyms id-${props.fragment.position}`} /></p>
                 </div>
                 <div className='rephrase-textarea-container'>
-                    {fragmentState.length > 1 && props.id > fragmentState[0].id && <button className='rephrase-delete' onClick={() => dispatch(deleteFragment(props.id))}><i className='fas fa-trash-alt' /></button>}
+                    <button className='rephrase-delete'><i className='fas fa-trash-alt' /></button>
                     <textarea
                         id='rephrase-textarea'
                         onChange={e => {
@@ -62,7 +66,7 @@ const RePhraseWorkspace: React.FunctionComponent<IRePhraseWorkspaceProps> = (pro
                 </div>
             </div>
             <div className='rephrase-workspace-submit-container'>
-                <button onClick={() => dispatch(getRephraseObjects())}><i className='fas fa-brain' /></button>
+                <button onClick={() => dispatch(getRephraseProjects())}><i className='fas fa-brain' /></button>
             </div>
             <div className='rephrase-workspace-right-container'>
                 <div className='rephrase-textarea-container'>

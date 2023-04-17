@@ -30,7 +30,7 @@ export const withToken = (params?) => {
 
     return {
         headers: {
-            Token: userState.token
+            Authorization: 'Token ' + userState.token
         },
         params: params
     }

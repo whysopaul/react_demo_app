@@ -1,57 +1,24 @@
-import { ADD_FRAGMENT, DELETE_FRAGMENT, GET_REPHRASE_OBJECTS, SET_REPHRASE_MODE, TRephraseMode, UPDATE_TITLE, rephraseDispatchTypes } from "../../actions/rephrase/types"
+import { REPHRASE_CREATE_REPHRASE_PROJECT, REPHRASE_GET_REPHRASE_PROJECTS, TRephraseProject, rephraseDispatchTypes } from "../../actions/rephrase/types"
 
 interface IDefaultState {
-    title: string,
-    fragments: {
-        id: number,
-        mode: TRephraseMode
-    }[],
-    getRephraseObjects: any
+    projects: TRephraseProject[]
 }
 
 const defaultState: IDefaultState = {
-    title: 'Новый проект',
-    fragments: [{
-        id: 1,
-        mode: 'Entire'
-    }],
-    getRephraseObjects: null
+    projects: []
 }
 
 const rephraseReducer = (state: IDefaultState = defaultState, action: rephraseDispatchTypes) => {
     switch (action.type) {
-        case UPDATE_TITLE:
+        case REPHRASE_GET_REPHRASE_PROJECTS:
             return {
                 ...state,
-                title: action.payload
+                projects: action.payload
             }
-        case ADD_FRAGMENT:
+        case REPHRASE_CREATE_REPHRASE_PROJECT:
             return {
                 ...state,
-                fragments: [...state.fragments, action.payload]
-            }
-        case DELETE_FRAGMENT:
-            return {
-                ...state,
-                fragments: [...state.fragments.filter(i => i.id !== action.payload)]
-            }
-        // case SET_REPHRASE_MODE:
-        //     return {
-        //         ...state,
-        //         fragments: [...state.fragments.map(fragment => {
-        //             if (fragment.id === action.payload.id) {
-        //                 return {
-        //                     ...fragment,
-        //                     mode: action.payload.mode
-        //                 }
-        //             }
-        //             return fragment
-        //         })]
-        //     }
-        case GET_REPHRASE_OBJECTS:
-            return {
-                ...state,
-                getRephraseObjects: action.payload
+                projects: [...state.projects, action.payload]
             }
         default:
             return state

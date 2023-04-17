@@ -8,6 +8,12 @@
     padding: 10px 10%;
 }
 
+.rephrase-projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+
 .rephrase-title-container {
     display: flex;
     justify-content: space-between;
@@ -183,4 +189,27 @@ button.rephrase-delete:active {
     align-items: center;
     justify-content: center;
     width: 50%;
+}
+
+.rephrase-projects>a>button {
+    width: 200px;
+    height: 100px;
+    box-shadow: 0 0 4px royalblue;
+}
+
+.rephrase-projects>button {
+    width: 200px;
+    height: 100px;
+    box-shadow: 0 0 4px royalblue;
+    margin: 0;
+}
+
+.rephrase-add-first-fragment-container>button {
+    position: relative;
+    margin: auto;
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
 }
