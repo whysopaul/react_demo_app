@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { useState } from 'react';
 import { encode } from '../utils/gpt-3-encoder/index';
-import { TRephraseMode } from '../../actions/rephrase/types';
 import { getRephraseProjects } from '../../actions/rephrase/rephrase';
 
 interface IRePhraseWorkspaceProps {
@@ -22,7 +21,7 @@ const RePhraseWorkspace: React.FunctionComponent<IRePhraseWorkspaceProps> = (pro
     const dispatch = useDispatch()
 
     const [showModes, setShowModes] = useState(false)
-    const [mode, setMode] = useState<TRephraseMode>('Entire')
+    const [mode, setMode] = useState('Entire')
     const [textarea, setTextarea] = useState(props.fragment.variants[0].text)
 
     return <>

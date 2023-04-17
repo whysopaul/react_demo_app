@@ -15,6 +15,18 @@ export type TRephraseProject = {
     name: string
 }
 
+export type TRephraseFragmentMode = {
+    position: number,
+    variants: {
+        id: number,
+        is_selected: boolean,
+        text: string
+    }[],
+    showModes: boolean,
+    mode: 'Entire' | 'Paragraph' | 'Personal',
+    is_synonyms: boolean
+}
+
 interface IGetRephraseProjects {
     type: typeof REPHRASE_GET_REPHRASE_PROJECTS,
     payload: TRephraseProject[]
@@ -24,7 +36,5 @@ interface ICreateRephraseProject {
     type: typeof REPHRASE_CREATE_REPHRASE_PROJECT,
     payload: any
 }
-
-export type TRephraseMode = 'Entire' | 'Paragraph' | 'Personal'
 
 export type rephraseDispatchTypes = IGetRephraseProjects | ICreateRephraseProject
