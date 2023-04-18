@@ -14,11 +14,9 @@ const RePhraseHelp: React.FunctionComponent<IRePhraseHelpProps> = (props) => {
     useOnClickOutside(refPopup, () => { setOpenModal(false) })
 
     return <>
-        <div>
-            <button onClick={(e) => { setOpenModal(true) }} title='Справка'>
-                <i className="fas fa-question"></i>
-            </button>
-        </div>
+        <button onClick={(e) => { setOpenModal(true) }} title='Справка'>
+            <i className="fas fa-question"></i>
+        </button>
 
         {openModal && <>
             <div className='m-background' />

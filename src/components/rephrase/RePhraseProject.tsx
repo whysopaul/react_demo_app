@@ -7,7 +7,7 @@ import { RootStore } from '../../store';
 import { RouteComponentProps } from 'react-router-dom'
 import { TRephraseFragmentMode, TRephraseProject } from '../../actions/rephrase/types';
 import { useOnClickOutside } from '../utils/HandleOnClickOutside';
-import { getRephraseProjects } from '../../actions/rephrase/rephrase';
+import { deleteRephraseProject, getRephraseProjects, updateRephraseProject } from '../../actions/rephrase/rephrase';
 import { encode } from '../utils/gpt-3-encoder/index'
 
 interface IRePhraseProjectProps {
@@ -42,15 +42,15 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
     const showModesToggle = (position: number) => {
         setFragmentsMode(fragmentsMode.map(i => {
             if (i.position === position) {
-                if (i.showModes === false) {
+                if (i.showModes) {
                     return {
                         ...i,
-                        showModes: true
+                        showModes: false
                     }
                 }
                 return {
                     ...i,
-                    showModes: false
+                    showModes: true
                 }
             }
             return i
@@ -59,15 +59,15 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
     const useSynonymsToggle = (position: number) => {
         setFragmentsMode(fragmentsMode.map(i => {
             if (i.position === position) {
-                if (i.is_synonyms === false) {
+                if (i.is_synonyms) {
                     return {
                         ...i,
-                        is_synonyms: true
+                        is_synonyms: false
                     }
                 }
                 return {
                     ...i,
-                    is_synonyms: false
+                    is_synonyms: true
                 }
             }
             return i
@@ -88,14 +88,14 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
 
                     <button
                         className='rephrase-save-button'
-                        onClick={() => {
-                            // setEditMode(!editMode)
-                            // dispatch(createAlert({ message: 'Название обновлено', type: 'Success' }))
-                        }}>
+                        onClick={() => dispatch(updateRephraseProject(title, current_project_id, fragmentsMode.map(({ showModes, mode, is_synonyms, ...original }) => original)))}>
                         <i className='fas fa-save' />
                     </button>
                 </div>
-                <RePhraseHelp />
+                <div>
+                    <button onClick={() => dispatch(deleteRephraseProject(current_project_id))}>Удалить</button>
+                    <RePhraseHelp />
+                </div>
             </div>
 
             {fragmentsMode?.length >= 0 && fragmentsMode.map((fragment, index) => {
