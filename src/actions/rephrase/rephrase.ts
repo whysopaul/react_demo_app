@@ -2,7 +2,7 @@ import { Dispatch } from "react";
 import axios from "axios";
 import { SERVER_URL } from "../../utils";
 import { withToken } from "../auth/auth";
-import { REPHRASE_CREATE_REPHRASE_PROJECT, REPHRASE_GET_REPHRASE_PROJECTS, REPHRASE_UPDATE_REPHRASE_PROJECT, rephraseDispatchTypes } from "./types";
+import { REPHRASE_CREATE_REPHRASE_PROJECT, REPHRASE_GET_REPHRASE_OPTIONS, REPHRASE_GET_REPHRASE_PROJECTS, REPHRASE_IS_LOADING, REPHRASE_UPDATE_REPHRASE_PROJECT, rephraseDispatchTypes } from "./types";
 import { CREATE_ALERT } from "../alerts/types";
 import store from "../../store";
 import { TUserData } from "../auth/types";
@@ -105,5 +105,47 @@ export const deleteRephraseProject = (id: number) => (dispatch: Dispatch<rephras
     }).then(res => {
         console.log(res.data)
 
+    })
+}
+
+export const getRephraseOptions = (id: number, position: number, text: string, is_synonyms: boolean, batch: number[], custom_start: string) => (dispatch: Dispatch<rephraseDispatchTypes>) => {
+
+    dispatch({
+        type: REPHRASE_IS_LOADING,
+        payload: true
+    })
+
+    const body = {
+        id,
+        text,
+        is_synonyms,
+        batch,
+        custom_start
+    }
+    const params = withToken()
+
+    axios.post(SERVER_URL + 'api/gpt/get_rephrase_options', body, params).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: REPHRASE_GET_REPHRASE_OPTIONS,
+            payload: {
+                id,
+                position,
+                result: res.data
+            }
+        })
+
+        dispatch({
+            type: REPHRASE_IS_LOADING,
+            payload: false
+        })
+    }).catch(error => {
+        console.log(error)
+
+        dispatch({
+            type: REPHRASE_IS_LOADING,
+            payload: false
+        })
     })
 }

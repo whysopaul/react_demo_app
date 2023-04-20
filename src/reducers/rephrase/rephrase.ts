@@ -1,11 +1,15 @@
-import { REPHRASE_CREATE_REPHRASE_PROJECT, REPHRASE_GET_REPHRASE_PROJECTS, REPHRASE_UPDATE_REPHRASE_PROJECT, TRephraseProject, rephraseDispatchTypes } from "../../actions/rephrase/types"
+import { REPHRASE_CREATE_REPHRASE_PROJECT, REPHRASE_GET_REPHRASE_OPTIONS, REPHRASE_GET_REPHRASE_PROJECTS, REPHRASE_IS_LOADING, REPHRASE_UPDATE_REPHRASE_PROJECT, TRephraseProject, TRephraseResponse, rephraseDispatchTypes } from "../../actions/rephrase/types"
 
 interface IDefaultState {
-    projects: TRephraseProject[]
+    projects: TRephraseProject[],
+    responses: TRephraseResponse[],
+    is_loading: boolean
 }
 
 const defaultState: IDefaultState = {
-    projects: []
+    projects: [],
+    responses: [],
+    is_loading: false
 }
 
 const rephraseReducer = (state: IDefaultState = defaultState, action: rephraseDispatchTypes) => {
@@ -15,11 +19,13 @@ const rephraseReducer = (state: IDefaultState = defaultState, action: rephraseDi
                 ...state,
                 projects: action.payload
             }
+
         case REPHRASE_CREATE_REPHRASE_PROJECT:
             return {
                 ...state,
                 projects: [...state.projects, action.payload]
             }
+
         case REPHRASE_UPDATE_REPHRASE_PROJECT:
             return {
                 ...state,
@@ -32,6 +38,30 @@ const rephraseReducer = (state: IDefaultState = defaultState, action: rephraseDi
                     })
                 ]
             }
+
+        case REPHRASE_GET_REPHRASE_OPTIONS:
+            return {
+                ...state,
+                responses: [
+                    ...state.responses.map(i => {
+                        if (i.id === action.payload.id && i.position === action.payload.position) {
+                            return {
+                                ...i,
+                                result: action.payload.result
+                            }
+                        }
+                        return i
+                    }),
+                    action.payload
+                ]
+            }
+
+        case REPHRASE_IS_LOADING:
+            return {
+                ...state,
+                is_loading: action.payload
+            }
+
         default:
             return state
     }
