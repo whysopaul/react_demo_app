@@ -58,7 +58,7 @@ interface IUpdateRephraseProject {
 
 interface IDeleteRephraseProject {
     type: typeof REPHRASE_DELETE_REPHRASE_PROJECT,
-    payload: any
+    payload: string
 }
 
 interface IGetRephraseOptions {

@@ -2,10 +2,8 @@ import { Dispatch } from "react";
 import axios from "axios";
 import { SERVER_URL } from "../../utils";
 import { withToken } from "../auth/auth";
-import { REPHRASE_CREATE_REPHRASE_PROJECT, REPHRASE_GET_REPHRASE_OPTIONS, REPHRASE_GET_REPHRASE_PROJECTS, REPHRASE_IS_LOADING, REPHRASE_UPDATE_REPHRASE_PROJECT, rephraseDispatchTypes } from "./types";
+import { REPHRASE_CREATE_REPHRASE_PROJECT, REPHRASE_DELETE_REPHRASE_PROJECT, REPHRASE_GET_REPHRASE_OPTIONS, REPHRASE_GET_REPHRASE_PROJECTS, REPHRASE_IS_LOADING, REPHRASE_UPDATE_REPHRASE_PROJECT, rephraseDispatchTypes } from "./types";
 import { CREATE_ALERT } from "../alerts/types";
-import store from "../../store";
-import { TUserData } from "../auth/types";
 
 export const getRephraseProjects = () => (dispatch: Dispatch<rephraseDispatchTypes>) => {
 
@@ -95,8 +93,30 @@ export const deleteRephraseProject = (id: number) => (dispatch: Dispatch<rephras
     const params = withToken({ id })
 
     axios.delete(SERVER_URL + 'api/gpt/delete_rephrase_object', params).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
+        dispatch({
+            type: REPHRASE_DELETE_REPHRASE_PROJECT,
+            payload: res.data
+        })
+
+        dispatch({
+            type: CREATE_ALERT,
+            payload: {
+                message: 'Проект удален',
+                type: 'Success'
+            }
+        })
+    }).catch(error => {
+        console.log(error)
+
+        dispatch({
+            type: CREATE_ALERT,
+            payload: {
+                message: 'Возникла ошибка',
+                type: 'Error'
+            }
+        })
     })
 }
 
@@ -108,7 +128,6 @@ export const getRephraseOptions = (id: number, position: number, text: string, i
     })
 
     const body = {
-        id,
         text,
         is_synonyms,
         batch,
@@ -117,7 +136,7 @@ export const getRephraseOptions = (id: number, position: number, text: string, i
     const params = withToken()
 
     axios.post(SERVER_URL + 'api/gpt/get_rephrase_options', body, params).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: REPHRASE_GET_REPHRASE_OPTIONS,

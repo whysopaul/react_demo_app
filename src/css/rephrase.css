@@ -230,6 +230,11 @@ button.rephrase-delete:active {
 .rephrase-paragraph-selection>p {
     margin: 0 0 15px 0;
     font-size: smaller;
+    inline-size: fit-content;
+}
+
+.rephrase-paragraph-selection>.selected-paragraph {
+    background-color: rgba(65, 105, 225, 0.5);
 }
 
 .rephrase-loading {
@@ -241,4 +246,6 @@ button.rephrase-delete:active {
     justify-content: center;
     justify-items: center;
     align-items: center;
+    z-index: 1;
+    filter: drop-shadow(0px 0px 6px rgb(77, 117, 163));
 }

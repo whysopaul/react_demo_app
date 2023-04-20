@@ -21,13 +21,15 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
 
     const dispatch = useDispatch()
 
-    const projectState = useSelector((state: RootStore) => state.rephraseReducer.projects)
+    const rephraseState = useSelector((state: RootStore) => state.rephraseReducer)
 
     useEffect(() => {
         dispatch(getRephraseProjects())
     }, [])
 
-    const temp: TRephraseProject = projectState.find(i => i.id === current_project_id)
+    const [rephraseInnerState, setRephraseInnerState] = useState(rephraseState)
+
+    const temp: TRephraseProject = rephraseInnerState.projects.find(i => i.id === current_project_id)
     // console.log(temp)
 
     // Project Title
@@ -76,20 +78,11 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
         }))
     }
 
-    // Loading State
-    const loadingState = useSelector((state: RootStore) => state.rephraseReducer.is_loading)
-
-    // State with responses from GPT
-    const responseState = useSelector((state: RootStore) => state.rephraseReducer.responses)
-
-    // const [responses, setResponses] = useState<TRephraseResponse[]>(responseState)
-
-    const forceUpdate: () => void = React.useState({})[1].bind(null, {})  // see NOTE below
-
+    // State update after response
     useEffect(() => {
-        forceUpdate()
-    }, [, responseState])
-
+        setRephraseInnerState(rephraseState)
+        // console.log('reload')
+    }, [rephraseState.responses])
 
     return <>
         <div className='rephrase-main'>
@@ -116,13 +109,11 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
                 </div>
             </div>
 
-            {loadingState && <RePhraseLoading />}
+            {rephraseState.is_loading && <RePhraseLoading />}
 
             {fragmentsMode?.length >= 0 && fragmentsMode.map((fragment, index) => {
 
                 const showModesClassName = fragment.showModes ? 'rephrase-mode-dropdown show' : 'rephrase-mode-dropdown'
-
-                const paragraphSplit = fragment.variants[0].text.split('\n').filter(i => i !== '')
 
                 return <>
                     <div className='rephrase-workspace-container' key={fragment.position}>
@@ -136,7 +127,8 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
                                             if (i.position === fragment.position) {
                                                 return {
                                                     ...i,
-                                                    mode: 'Personal'
+                                                    mode: 'Personal',
+                                                    batch: []
                                                 }
                                             }
                                             return i
@@ -145,7 +137,8 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
                                             if (i.position === fragment.position) {
                                                 return {
                                                     ...i,
-                                                    mode: 'Paragraph'
+                                                    mode: 'Paragraph',
+                                                    custom_start: ''
                                                 }
                                             }
                                             return i
@@ -154,7 +147,9 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
                                             if (i.position === fragment.position) {
                                                 return {
                                                     ...i,
-                                                    mode: 'Entire'
+                                                    mode: 'Entire',
+                                                    batch: [],
+                                                    custom_start: ''
                                                 }
                                             }
                                             return i
@@ -166,7 +161,7 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
                                 <p>
                                     Режим:
                                     {fragment.mode === 'Entire' && ' Рерайт всего текста'}
-                                    {fragment.mode === 'Paragraph' && ' Выбор абзацев'}
+                                    {fragment.mode === 'Paragraph' && ' Выбор абзацев ' + fragment.batch.map(i => i + 1).sort((a, b) => a - b).join(', ')}
                                     {fragment.mode === 'Personal' && ' Персональная команда'}
                                 </p>
                                 <p><label htmlFor={`use-synonyms id-${fragment.position}`}>Использовать синонимы</label><input type='checkbox' id={`use-synonyms id-${fragment.position}`} checked={fragment.is_synonyms} onChange={() => useSynonymsToggle(fragment.position)} /></p>
@@ -204,11 +199,38 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
 
                                 {fragment.mode === 'Paragraph' && <>
                                     <div className='rephrase-paragraph-selection'>
-                                        {paragraphSplit.map(i => {
-                                            return <>
-                                                <p>{i}</p>
-                                            </>
-                                        })}
+                                        {fragment.variants[0].text
+                                            .split('\n')
+                                            .filter(i => i !== '')
+                                            .map((p, idx) => {
+                                                return <>
+                                                    <p data-id={idx}
+                                                        className={fragment.batch.includes(idx) ? 'selected-paragraph' : null}
+                                                        onClick={_ => {
+                                                            // console.log(idx)
+                                                            fragment.batch.includes(idx)
+                                                                ? setFragmentsMode(fragmentsMode.map(i => {
+                                                                    if (i.position === fragment.position) {
+                                                                        return {
+                                                                            ...i,
+                                                                            batch: fragment.batch.filter(i => i !== idx)
+                                                                        }
+                                                                    }
+                                                                    return i
+                                                                }))
+                                                                : setFragmentsMode(fragmentsMode.map(i => {
+                                                                    if (i.position === fragment.position) {
+                                                                        return {
+                                                                            ...i,
+                                                                            batch: [...i.batch, idx]
+                                                                        }
+                                                                    }
+                                                                    return i
+                                                                }))
+                                                        }}
+                                                    >{p}</p>
+                                                </>
+                                            })}
                                     </div>
                                 </>}
 
@@ -267,17 +289,15 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
                             </button>
                         </div>
 
-                        {responseState.filter(i => i.id === current_project_id).filter(i => i.position === fragment.position).length > 0 && <div className='rephrase-workspace-right-container'>
+                        {rephraseInnerState.responses.filter(i => i.id === current_project_id && i.position === fragment.position).length > 0 && <div className='rephrase-workspace-right-container'>
                             <div className='rephrase-textarea-container'>
-                                <textarea id='rephrase-textarea' readOnly>
-                                    {responseState?.find(i => i.id === current_project_id && i.position === fragment.position).result[0]}
-                                </textarea>
+                                <textarea id='rephrase-textarea' value={rephraseInnerState.responses.findLast(i => i.id === current_project_id && i.position === fragment.position).result[0]} readOnly />
                             </div>
                         </div>}
 
-                        {responseState.filter(i => i.id === current_project_id).filter(i => i.position === fragment.position).length === 0 && <div className='rephrase-workspace-right-container'>
+                        {rephraseInnerState.responses.filter(i => i.id === current_project_id && i.position === fragment.position).length === 0 && <div className='rephrase-workspace-right-container'>
                             <div className='rephrase-textarea-container'>
-                                <textarea id='rephrase-textarea' readOnly></textarea>
+                                <textarea id='rephrase-textarea' readOnly />
                             </div>
                         </div>}
                     </div>

@@ -5,7 +5,7 @@
         "watch": true,
         "target": "esnext",
         "lib": [
-            "es6",
+            "esnext",
             "dom"
         ],
         "esModuleInterop": true,
