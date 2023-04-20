@@ -92,17 +92,9 @@ export const updateRephraseProject = (name: string, id: number, text: { position
 
 export const deleteRephraseProject = (id: number) => (dispatch: Dispatch<rephraseDispatchTypes>) => {
 
-    const state = store.getState()
-    const userState: TUserData = state['authReducer']['userdata']
+    const params = withToken({ id })
 
-    axios.delete(SERVER_URL + 'api/gpt/delete_rephrase_object', {
-        headers: {
-            Authorization: 'Token ' + userState.token
-        },
-        data: {
-            id
-        }
-    }).then(res => {
+    axios.delete(SERVER_URL + 'api/gpt/delete_rephrase_object', params).then(res => {
         console.log(res.data)
 
     })

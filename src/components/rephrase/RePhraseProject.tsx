@@ -84,9 +84,12 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
 
     // const [responses, setResponses] = useState<TRephraseResponse[]>(responseState)
 
-    // useEffect(() => {
-    //     setResponses(responseState)
-    // }, [responseState])
+    const forceUpdate: () => void = React.useState({})[1].bind(null, {})  // see NOTE below
+
+    useEffect(() => {
+        forceUpdate()
+    }, [, responseState])
+
 
     return <>
         <div className='rephrase-main'>
