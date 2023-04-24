@@ -13,7 +13,7 @@ export const loginVTargete = (username: string, password: string) => (dispatch: 
     // console.log(body)
 
     axios.post(SERVER_URL + 'api/auth/login', { username, password }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: AUTH_LOGIN_VTARGETE,

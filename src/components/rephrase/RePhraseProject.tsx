@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { RouteComponentProps } from 'react-router-dom'
-import { TRephraseFragmentMode, TRephraseProject, TRephraseResponse } from '../../actions/rephrase/types';
+import { TRephraseFragmentMode, TRephraseProject } from '../../actions/rephrase/types';
 import { useOnClickOutside } from '../utils/HandleOnClickOutside';
 import { deleteRephraseProject, getRephraseOptions, getRephraseProjects, updateRephraseProject } from '../../actions/rephrase/rephrase';
 import { encode } from '../utils/gpt-3-encoder/index'
@@ -178,7 +178,7 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
                                         id='rephrase-textarea'
                                         onChange={e => {
                                             e.target.style.height = 'auto'
-                                            e.target.style.height = e.target.scrollHeight + 'px'
+                                            e.target.style.height = e.target.scrollHeight - 20 + 'px'
                                             setFragmentsMode(fragmentsMode.map(i => {
                                                 if (i.position === fragment.position) {
                                                     return {
@@ -192,9 +192,8 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
                                                 return i
                                             }))
                                         }}
-                                    >
-                                        {fragment.variants[0].text}
-                                    </textarea>
+                                        value={fragment.variants[0].text}
+                                    />
                                 </>}
 
                                 {fragment.mode === 'Paragraph' && <>
@@ -249,14 +248,13 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
                                                 return i
                                             }))
                                         }}
-                                    >
-                                        {fragment.custom_start}
-                                    </textarea>
+                                        value={fragment.custom_start}
+                                    />
                                     <textarea
                                         id='rephrase-textarea'
                                         onChange={e => {
                                             e.target.style.height = 'auto'
-                                            e.target.style.height = e.target.scrollHeight + 'px'
+                                            e.target.style.height = e.target.scrollHeight - 20 + 'px'
                                             setFragmentsMode(fragmentsMode.map(i => {
                                                 if (i.position === fragment.position) {
                                                     return {
@@ -270,9 +268,8 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
                                                 return i
                                             }))
                                         }}
-                                    >
-                                        {fragment.variants[0].text}
-                                    </textarea>
+                                        value={fragment.variants[0].text}
+                                    />
                                 </>}
 
                             </div>

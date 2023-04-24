@@ -11,7 +11,7 @@ const defaultState: IDefaultState = {
 export const authReducer = (state: IDefaultState = defaultState, action: authDispatchTypes) => {
     switch (action.type) {
         case AUTH_LOGIN_VTARGETE:
-            console.log('hehehe')
+            // console.log('hehehe')
             return {
                 ...state,
                 userdata: action.payload
