@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import axios from "axios";
-import { SERVER_URL } from "../../utils";
+import { SERVER_URL, URL } from "../../utils";
 import { withToken } from "../auth/auth";
 import { REPHRASE_CREATE_REPHRASE_PROJECT, REPHRASE_DELETE_REPHRASE_PROJECT, REPHRASE_GET_REPHRASE_OPTIONS, REPHRASE_GET_REPHRASE_PROJECTS, REPHRASE_IS_LOADING, REPHRASE_UPDATE_REPHRASE_PROJECT, rephraseDispatchTypes } from "./types";
 import { CREATE_ALERT } from "../alerts/types";
@@ -99,6 +99,8 @@ export const deleteRephraseProject = (id: number) => (dispatch: Dispatch<rephras
             type: REPHRASE_DELETE_REPHRASE_PROJECT,
             payload: res.data
         })
+
+        window.location.replace(URL + '/rephrase')
 
         dispatch({
             type: CREATE_ALERT,

@@ -22,7 +22,7 @@ import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
 export const config = {
     key: 'root',
     storage: storage,
-    blacklist: ['router', 'alerts'],
+    blacklist: ['router',],
     stateReconciler: autoMergeLevel2
 };
 

@@ -3,6 +3,7 @@ import { AUTH_LOGIN_VTARGETE, TUserData, authDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../utils";
 import store from "../../store";
+import { CREATE_ALERT } from "../alerts/types";
 
 export const loginVTargete = (username: string, password: string) => (dispatch: Dispatch<authDispatchTypes>) => {
 
@@ -20,7 +21,25 @@ export const loginVTargete = (username: string, password: string) => (dispatch: 
             payload: res.data
         })
 
-    }).catch(err => console.log(err))
+        dispatch({
+            type: CREATE_ALERT,
+            payload: {
+                type: 'Success',
+                message: 'Вход выполнен'
+            }
+        })
+
+    }).catch(error => {
+        console.log(error)
+
+        dispatch({
+            type: CREATE_ALERT,
+            payload: {
+                type: 'Error',
+                message: 'Возникла ошибка'
+            }
+        })
+    })
 }
 
 export const withToken = (params?) => {

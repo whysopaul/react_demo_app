@@ -10,6 +10,7 @@ import { useOnClickOutside } from '../utils/HandleOnClickOutside';
 import { deleteRephraseProject, getRephraseOptions, getRephraseProjects, updateRephraseProject } from '../../actions/rephrase/rephrase';
 import { encode } from '../utils/gpt-3-encoder/index'
 import RePhraseLoading from './RePhraseLoading';
+import { createAlert } from '../../actions/alerts/alerts';
 
 interface IRePhraseProjectProps {
     id: number
@@ -83,6 +84,17 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
         setRephraseInnerState(rephraseState)
         // console.log('reload')
     }, [rephraseState.responses])
+
+    // Resize textareas by content
+    useEffect(() => {
+        const textareas = document.getElementsByTagName('textarea')
+
+        if (textareas.length > 0)
+            for (let i = 0; i < textareas.length; i++) {
+                textareas[i].style.height = 'auto'
+                textareas[i].style.height = textareas[i].scrollHeight - 20 + 'px'
+            }
+    })
 
     return <>
         <div className='rephrase-main'>
@@ -177,8 +189,6 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
                                     <textarea
                                         id='rephrase-textarea'
                                         onChange={e => {
-                                            e.target.style.height = 'auto'
-                                            e.target.style.height = e.target.scrollHeight - 20 + 'px'
                                             setFragmentsMode(fragmentsMode.map(i => {
                                                 if (i.position === fragment.position) {
                                                     return {
@@ -253,8 +263,6 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
                                     <textarea
                                         id='rephrase-textarea'
                                         onChange={e => {
-                                            e.target.style.height = 'auto'
-                                            e.target.style.height = e.target.scrollHeight - 20 + 'px'
                                             setFragmentsMode(fragmentsMode.map(i => {
                                                 if (i.position === fragment.position) {
                                                     return {
@@ -280,7 +288,12 @@ const RePhraseProject: React.FunctionComponent<IRePhraseProjectProps> = ({ match
 
                         <div className='rephrase-workspace-submit-container'>
                             <button onClick={() => {
-                                dispatch(getRephraseOptions(temp.id, fragment.position, fragment.variants[0].text, fragment.is_synonyms, fragment.batch, fragment.custom_start))
+                                if (fragment.variants[0].text.trim().length === 0) {
+                                    dispatch(createAlert({ message: 'Введите текст в поле слева', type: 'Notification' }))
+                                }
+                                if (fragment.variants[0].text.trim().length > 0) {
+                                    dispatch(getRephraseOptions(temp.id, fragment.position, fragment.variants[0].text, fragment.is_synonyms, fragment.batch, fragment.custom_start))
+                                }
                             }}>
                                 <i className='fas fa-brain' />
                             </button>

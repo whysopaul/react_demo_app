@@ -1,3 +1,5 @@
+import { TCreateAlert } from "../alerts/types"
+
 export const AUTH_LOGIN_VTARGETE = 'AUTH_LOGIN_VTARGETE'
 
 interface IAuthLogin {
@@ -14,4 +16,4 @@ export type TUserData = {
     }
 }
 
-export type authDispatchTypes = IAuthLogin
+export type authDispatchTypes = IAuthLogin | TCreateAlert
