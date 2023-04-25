@@ -31,7 +31,8 @@ export const getData = () => (dispatch: Dispatch<paulDispatchTypes>) => {
             type: GET_DATA_IS_LOADING,
             payload: false
         })
-    }).catch(err => {
+    }).catch(error => {
+        console.log(error)
 
         // вызов маркера загрузка на конец загрузки
         dispatch({
