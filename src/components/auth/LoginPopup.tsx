@@ -32,14 +32,16 @@ const LoginPopup: React.FunctionComponent<ILoginPopupProps> = (props) => {
     }
 
     return <>
-        <button onClick={() => setOpenForm(true)}>Login</button>
+        <button onClick={() => setOpenForm(true)}>Log In</button>
 
         {openForm && <>
             <div className='m-background' />
             <div className='paul-popup-container' ref={refPopup} onClick={e => e.stopPropagation()}>
                 <p>Логин: <input type="text" value={username} onChange={e => setUsername(e.target.value)} /></p>
                 <p>Пароль: <input type="password" value={password} onChange={e => setPassword(e.target.value)} /></p>
-                <button onClick={submitLogin}>Login</button>
+                <div className='popup-button-container'>
+                    <button onClick={submitLogin}>Login</button>
+                </div>
             </div>
         </>}
     </>;

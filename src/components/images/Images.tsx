@@ -6,6 +6,7 @@ import { getData } from '../../actions/paulactions/paulactions';
 import { TPaulImage } from '../../actions/paulactions/types';
 import Loading from '../utils/Loading';
 import Popup from './Popup';
+import Unauthorized from '../Unauthorized';
 
 interface IImagesProps {
 }
@@ -19,9 +20,12 @@ const Images: React.FunctionComponent<IImagesProps> = (props) => {
     const imagesState = useSelector((state: RootStore) => state.paul.data)
     const loadingState = useSelector((state: RootStore) => state.paul.is_loading)
 
+    const userState = useSelector((state: RootStore) => state.authReducer.userdata)
+
     // Первичная загрузка данных
     React.useEffect(() => {
-        dispatch(getData())
+        if (userState.id !== -1)
+            dispatch(getData())
     }, [])
 
     // массив с выбранными элементами
@@ -59,7 +63,9 @@ const Images: React.FunctionComponent<IImagesProps> = (props) => {
             <Popup val={'12345'} onClose={() => setShopPopup(false)} />
         </>}
 
-        <div>
+        {userState.id === -1 && <Unauthorized />}
+
+        {userState.id !== -1 && <div>
             <div className='main'>
                 <div className='block upload'>
                     <div className='upload-file'>
@@ -100,7 +106,7 @@ const Images: React.FunctionComponent<IImagesProps> = (props) => {
                     })}
                 </div>
             </div>
-        </div>
+        </div>}
     </>
 };
 

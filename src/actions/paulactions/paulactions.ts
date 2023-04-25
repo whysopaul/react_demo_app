@@ -2,12 +2,10 @@ import axios from "axios";
 import { Dispatch } from "react";
 import { sleep } from "../../utils";
 import { GET_DATA, GET_DATA_IS_LOADING, paulDispatchTypes } from "./types";
+import { withToken } from "../auth/auth";
 
 export const getData = () => (dispatch: Dispatch<paulDispatchTypes>) => {
-    const params = {
-
-    }
-
+    const params = withToken()
 
     // вызов маркера загрузка на начало загрузки
     dispatch({

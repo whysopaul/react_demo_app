@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom'
-import LoginPopup from './auth/LoginPopup';
 
 interface IHomeProps {
 }
@@ -10,7 +9,6 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
         <div className='main'>
             <div className='home-header'>
                 <h1>Home</h1>
-                <LoginPopup />
             </div>
             <div className='home-menu'>
                 <Link to='/images'><button>Images</button></Link>

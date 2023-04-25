@@ -46,7 +46,7 @@ const PopupSettings: React.FunctionComponent<IPopupSettingsProps> = (props) => {
                 <p>Название: <input type='text' value={adState.TextAd.Title} onChange={e => changeTitle(e.target.value)} style={{ width: '200px' }} /></p>
                 <p>Состояние: {adState.State} <input type='checkbox' checked={adState.State === 'ON' ? true : false} onChange={() => changeState(adState.State)} /></p>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className='popup-button-container'>
                 <button
                     onClick={() => {
                         dispatch(changeItem(adState))

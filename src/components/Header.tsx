@@ -1,20 +1,22 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../store';
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom'
-import { getData } from '../actions/paulactions/paulactions';
+import LoginPopup from './auth/LoginPopup';
+import { authLogout } from '../actions/auth/auth';
+import { URL } from '../utils';
 
 export interface IHeaderProps {
 }
 
 export default function Header(props: IHeaderProps) {
 
+    const dispatch = useDispatch()
     const userState = useSelector((state: RootStore) => state.authReducer.userdata)
 
     // ???
     function testFn() {
-        location.replace('/')
+        window.location.replace(URL + '/')
     }
 
     return (
@@ -31,23 +33,25 @@ export default function Header(props: IHeaderProps) {
                 <Link to='/testdata'><p className='href'>Test Data</p></Link>
                 <Link to='/rephrase'><p className='href'>Re-phrase</p></Link>
             </div>
-            {userState && <>
-                <div className='user-info'>
-                    <div className='user'>
-                        <div className='user-name-title'>
-                            <div className='user-name'>
-                                {userState?.username}
-                            </div>
-                            <div className='user-title'>
-                                Администратор
-                            </div>
+            {userState.id !== -1 && <div className='user-info'>
+                <div className='user'>
+                    <div className='user-name-title'>
+                        <div className='user-name'>
+                            {userState?.username}
+                        </div>
+                        <div className='user-title'>
+                            {userState.is_admin ? 'Администратор' : 'Пользователь'}
                         </div>
                     </div>
-                    {userState.vk_profile && <div className='user'>
-                        <img className='user-photo' src={userState.vk_profile.photo} />
-                    </div>}
                 </div>
-            </>}
+                {userState.vk_profile && <div className='user'>
+                    <img className='user-photo' src={userState.vk_profile.photo} />
+                </div>}
+            </div>}
+            <div className='login-container'>
+                {userState.id === -1 && <LoginPopup />}
+                {userState.id !== -1 && <button onClick={() => dispatch(authLogout())}>Logout</button>}
+            </div>
         </div>
     );
 }

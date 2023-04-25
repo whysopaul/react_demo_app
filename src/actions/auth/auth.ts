@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { AUTH_LOGIN_VTARGETE, TUserData, authDispatchTypes } from "./types";
+import { AUTH_LOGIN_VTARGETE, AUTH_LOGOUT, TUserData, authDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../utils";
 import store from "../../store";
@@ -39,6 +39,12 @@ export const loginVTargete = (username: string, password: string) => (dispatch: 
                 message: 'Возникла ошибка'
             }
         })
+    })
+}
+
+export const authLogout = () => (dispatch: Dispatch<authDispatchTypes>) => {
+    dispatch({
+        type: AUTH_LOGOUT
     })
 }
 

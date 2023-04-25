@@ -55,7 +55,7 @@ a:hover {
 
 .user-info {
     display: flex;
-    margin-right: 15%;
+    /* margin-right: 15%; */
 }
 
 .user {
@@ -333,6 +333,18 @@ a>button {
     margin: auto;
     font-size: 1rem;
     padding: 1rem;
+}
+
+.popup-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.header>.login-container {
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
 }
 
 /*---- Other ----*/

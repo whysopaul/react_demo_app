@@ -4,6 +4,7 @@ import { RootStore } from '../../store';
 import { useEffect } from 'react';
 import { createRephraseProject, getRephraseProjects } from '../../actions/rephrase/rephrase';
 import { Link } from 'react-router-dom'
+import Unauthorized from '../Unauthorized';
 
 interface IRePhraseHomeProps {
 }
@@ -12,14 +13,19 @@ const RePhraseHome: React.FunctionComponent<IRePhraseHomeProps> = (props) => {
 
     const dispatch = useDispatch()
 
+    const userState = useSelector((state: RootStore) => state.authReducer.userdata)
     const projectState = useSelector((state: RootStore) => state.rephraseReducer.projects)
 
     useEffect(() => {
-        dispatch(getRephraseProjects())
+        if (userState.id !== -1)
+            dispatch(getRephraseProjects())
     }, [])
 
     return <>
-        <div className='rephrase-main'>
+
+        {userState.id === -1 && <Unauthorized />}
+
+        {userState.id !== -1 && <div className='rephrase-main'>
             <h1>Мои проекты</h1>
             <div className='rephrase-projects'>
                 {projectState && projectState.length >= 0 && projectState.map(project => {
@@ -29,7 +35,7 @@ const RePhraseHome: React.FunctionComponent<IRePhraseHomeProps> = (props) => {
                 })}
                 <button onClick={() => dispatch(createRephraseProject())}><i className='fas fa-plus' /></button>
             </div>
-        </div>
+        </div>}
     </>;
 };
 
